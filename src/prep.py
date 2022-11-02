@@ -80,9 +80,6 @@ def guided_filter(normI, corrected_t, w, eps):
     refined_t = mean_a*normI + mean_b # refined transmission map
     return refined_t
 
-
-
-
 def dehaze(I, tmin=0.1, w=15, alpha=0.4, omega=0.75, p=0.1, eps=1e-3, reduce=False):
     I = np.asarray(I, dtype=np.float64) # Convert the input to a float array.
     I = I[:, :, :3] / 255
@@ -105,6 +102,7 @@ def dehaze(I, tmin=0.1, w=15, alpha=0.4, omega=0.75, p=0.1, eps=1e-3, reduce=Fal
     return f_enhanced
 
 img = cv.imread('./data/download.jpeg')
+img = cv.cvtColor(img, cv.COLOR_BGR2RGB)
 dehazed = dehaze(img, reduce=True)
 plt.imshow(dehazed)
 plt.show()
