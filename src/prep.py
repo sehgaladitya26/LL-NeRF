@@ -1,6 +1,6 @@
 import cv2 as cv
 import numpy as np
-from cv2.ximgproc import guidedFilter
+import matplotlib.pyplot as plt
  
 def get_illumination_channel(I, w):
     M, N, _ = I.shape
@@ -61,6 +61,28 @@ def reduce_init_t(init_t):
     init_t = init_t.astype(np.float64)/255 # normalizing the transmission map
     return init_t
 
+def guided_filter(normI, corrected_t, w, eps):
+    M, N, _ = normI.shape
+    mean_I = cv.boxFilter(normI, -1, (w, w)) # mean of I
+    mean_t = cv.boxFilter(corrected_t, -1, (w, w)) # mean of t
+    mean_I_t = cv.boxFilter(normI*corrected_t, -1, (w, w)) # mean of I*t
+    cov_I_t = mean_I_t - mean_I*mean_t # covariance of I, t
+ 
+    mean_II = cv.boxFilter(normI*normI, -1, (w, w)) # mean of I*I
+    var_I = mean_II - mean_I*mean_I # variance of I
+ 
+    a = cov_I_t / (var_I + eps) # a = covariance of I, t / (variance of I + eps)
+    b = mean_t - a*mean_I # b = mean of t - a*mean of I
+ 
+    mean_a = cv.boxFilter(a, -1, (w, w)) # mean of a
+    mean_b = cv.boxFilter(b, -1, (w, w)) # mean of b
+ 
+    refined_t = mean_a*normI + mean_b # refined transmission map
+    return refined_t
+
+
+
+
 def dehaze(I, tmin=0.1, w=15, alpha=0.4, omega=0.75, p=0.1, eps=1e-3, reduce=False):
     I = np.asarray(I, dtype=np.float64) # Convert the input to a float array.
     I = I[:, :, :3] / 255
@@ -74,7 +96,7 @@ def dehaze(I, tmin=0.1, w=15, alpha=0.4, omega=0.75, p=0.1, eps=1e-3, reduce=Fal
     corrected_t = get_corrected_transmission(I, A, Idark, Ibright, init_t, alpha, omega, w)
  
     normI = (I - I.min()) / (I.max() - I.min())
-    refined_t = cv.guidedFilter(normI, corrected_t, w, eps) # applying guided filter
+    refined_t = guided_filter(normI, corrected_t, w, eps) # applying guided filter
     J_refined = get_final_image(I, A, refined_t, tmin)
      
     enhanced = (J_refined*255).astype(np.uint8)
@@ -84,5 +106,5 @@ def dehaze(I, tmin=0.1, w=15, alpha=0.4, omega=0.75, p=0.1, eps=1e-3, reduce=Fal
 
 img = cv.imread('./data/download.jpeg')
 dehazed = dehaze(img, reduce=True)
-cv.imshow('Dehazed', dehazed)
-cv.waitKey(0)
+plt.imshow(dehazed)
+plt.show()
