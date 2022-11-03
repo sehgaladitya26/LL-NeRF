@@ -9,13 +9,16 @@ files = os.listdir(path)
 for file in files:
     if file.endswith('.jpg'):
         I = cv.imread(path+file)
+        I = cv.cvtColor(I, cv.COLOR_BGR2RGB)
         J = dehaze(I, tmin=0.1, w=15, alpha=0.4, omega=0.75, p=0.1, eps=1e-3, reduce=False)
         plt.imsave(dest+file, J)
     elif file.endswith('.png'):
         I = cv.imread(path+file)
+        I = cv.cvtColor(I, cv.COLOR_BGR2RGB)
         J = dehaze(I, tmin=0.1, w=15, alpha=0.4, omega=0.75, p=0.1, eps=1e-3, reduce=False)
         plt.imsave(dest+file, J)
     elif file.endswith('.jpeg'):
         I = cv.imread(path+file)
+        I = cv.cvtColor(I, cv.COLOR_BGR2RGB)
         J = dehaze(I, tmin=0.1, w=15, alpha=0.4, omega=0.75, p=0.1, eps=1e-3, reduce=False)
         plt.imsave(dest+file, J)
