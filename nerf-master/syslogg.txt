@@ -1,0 +1,57 @@
+Loaded image data (378, 504, 3, 20) [378.         504.         407.56579161]
+Loaded ./data/nerf_llff_data/fern 16.985296178676084 80.00209740336334
+recentered (3, 5)
+[[ 1.0000000e+00  0.0000000e+00  0.0000000e+00  1.4901161e-09]
+ [ 0.0000000e+00  1.0000000e+00 -1.8730975e-09 -9.6857544e-09]
+ [-0.0000000e+00  1.8730975e-09  1.0000000e+00  0.0000000e+00]]
+Data:
+(20, 3, 5) (20, 378, 504, 3) (20, 2)
+HOLDOUT view is 12
+Loaded llff (20, 378, 504, 3) (120, 3, 5) [378.     504.     407.5658] ./data/nerf_llff_data/fern
+Auto LLFF holdout, 8
+DEFINING BOUNDS
+NEAR FAR 0.0 1.0
+MODEL 63 27 <class 'int'> <class 'int'> True
+(?, 90) (?, 63) (?, 27)
+MODEL 63 27 <class 'int'> <class 'int'> True
+(?, 90) (?, 63) (?, 27)
+Found ckpts ['./logs/fern_test/model_000000.npy']
+Reloading from ./logs/fern_test/model_000000.npy
+Resetting step to 1
+Reloading fine from ./logs/fern_test/model_fine_000000.npy
+get rays
+done, concats
+shuffle rays
+done
+Begin
+TRAIN views are [ 1  2  3  4  5  6  7  9 10 11 12 13 14 15 17 18 19]
+TEST views are [ 0  8 16]
+VAL views are [ 0  8 16]
+fern_test 1 11.189191 0.15017477 1
+iter time 5.04172
+fern_test 2 12.22328 0.12291154 2
+iter time 1.34348
+fern_test 3 12.112659 0.12251406 3
+iter time 1.31459
+fern_test 4 12.109335 0.12151061 4
+iter time 1.30587
+fern_test 5 12.516057 0.11269833 5
+iter time 1.25137
+fern_test 6 13.190894 0.096628286 6
+iter time 1.31298
+fern_test 7 12.757992 0.10640159 7
+iter time 1.29458
+fern_test 8 13.039926 0.09883359 8
+iter time 1.27784
+fern_test 9 13.35953 0.0918488 9
+iter time 1.32280
+fern_test 100 15.9459915 0.05072983 100
+iter time 1.35495
+fern_test 200 17.585518 0.03550183 200
+iter time 1.32565
+fern_test 300 18.494864 0.028415035 300
+iter time 1.45637
+fern_test 400 18.835451 0.026283508 400
+iter time 1.56403
+fern_test 500 19.327778 0.023937738 500
+iter time 1.33010
