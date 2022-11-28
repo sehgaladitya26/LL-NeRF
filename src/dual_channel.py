@@ -80,7 +80,12 @@ def dehaze(I, tmin=0.1, w=15, alpha=0.4, omega=0.75, p=0.1, eps=1e-3, reduce=Fal
     J_refined = get_final_image(I, A, refined_t, tmin)
      
     enhanced = (J_refined*255).astype(np.uint8)
-    # f_enhanced = cv.detailEnhance(enhanced, sigma_s=10, sigma_r=0.15)
-    # f_enhanced = cv.edgePreservingFilter(f_enhanced, flags=1, sigma_s=64, sigma_r=0.2)
-    f_enhanced = enhanced
+    f_enhanced = cv.detailEnhance(enhanced, sigma_s=10, sigma_r=0.15)
+    f_enhanced = cv.edgePreservingFilter(f_enhanced, flags=1, sigma_s=64, sigma_r=0.2)
+    # f_enhanced = enhanced
     return f_enhanced
+
+# input = cv.imread('./data/ezgif-frame-001.jpg')
+# input = cv.cvtColor(input, cv.COLOR_BGR2RGB)
+# output = dehaze(input, tmin=0.1, w=15, alpha=0.4, omega=0.75, p=0.1, eps=1e-3, reduce=False)
+# plt.imsave('./results/DualCh.jpg', output)
